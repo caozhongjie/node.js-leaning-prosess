@@ -1,0 +1,78 @@
+{{extend '../_layouts/home.html'}}
+
+{{block 'title'}}{{'多人博客 - 首页'}}{{/block}}
+
+{{block 'body'}}
+<section class="container">
+    {{include '../_partials/settings-nav.html'}}
+    <div class="col-md-5">
+        <form id="personMessage">
+            <div class="form-group">
+                <label>账号</label>
+                <p class="form-control-static">{{user.email}}</p>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">昵称</label>
+                <input type="text" class="form-control" value="{{user.nickname}}" name="nickname">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">介绍</label>
+                <textarea class="form-control" rows="3" name="bio">{{user.bio}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">性别</label>
+                <div>
+                    <input type="number" hidden value="{{user.gender}}" class="gender">
+                    <label class="radio-inline">
+                        <input class="sex" type="radio" name="gender" id="inlineRadio1" value="0"> 保密
+                    </label>
+                    <label class="radio-inline">
+                        <input class="sex" type="radio" name="gender" id="inlineRadio2" value="1"> 男
+                    </label>
+                    <label class="radio-inline">
+                        <input class="sex" type="radio" name="gender" id="inlineRadio3" value="2" checked> 女
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">生日</label>
+                <input type="text" name="birthday" value="{{user.birthday}}" class="form-control" id="exampleInputPassword1" placeholder="">
+            </div>
+            <button type="submit" class="btn btn-success">保存</button>
+        </form>
+    </div>
+    <div class="col-md-2 profile-avatar">
+        <dl>
+            <dt>头像设置</dt>
+            <dd>
+                <img class="avatar" width="150" height="150" src="../public/img/avatar-max-img.png" alt="">
+                <div>
+                    <button class="btn btn-default" href="">Upload new picture</button>
+                </div>
+            </dd>
+        </dl>
+    </div>
+</section>
+<script src="/node_modules/jquery/dist/jquery.js"></script>
+<script>
+    $('.sex').eq(parseInt($('.gender').eq(0).val())).attr("checked", true)
+    $('#personMessage').on('submit', function (e) {
+        e.preventDefault()
+        var formData = $(this).serialize()
+        console.log(formData)
+        $.ajax({
+            url: '/personMessage',
+            type: 'post',
+            data: formData,
+            dataType: 'json',
+            success: function (res) {
+                if (res.err_code == 0) {
+                    window.location.href = '/'
+                } else {
+                    alert(res.message)
+                }
+            }
+        })
+    })
+</script>
+{{/block}}

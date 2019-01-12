@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>学生信息</h1>
+    <form action="/students" method="post">
+        <input type="hidden" value="{{id}}" name="id">
+        <input type="text" placeholder="请输入学生姓名" name="name" value="{{name}}">
+        <input type="text" placeholder="请输入学生性别" name="gender" value="{{gender}}">
+        <input type="text" placeholder="请输入学生年龄" name="age" value="{{age}}">
+        <input type="text" placeholder="请输入学生爱好" name="hobbies" value="{{hobbies}}">
+        <button type="submit">提交</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //回调函数，取出函数内部请求出来的值
+    function get(url,callback) {
+        var app = new XMLHttpRequest();
+        app.onload=function () {
+            callback(app.responseText)
+        }
+        app.open("get",url,true);
+        app.send()
+    }
+    get('data.json',function (data) {
+        console.log(data);
+    })
+
+
+
+
+</script>
